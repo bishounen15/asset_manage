@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<img height="35px" src="/storage/logo.png">',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<img height="35px" src="/storage/logo_mini.png">',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,18 +108,103 @@ return [
     */
 
     'menu' => [
-        'MAIN NAVIGATION',
+        'MAIN MENU',
         [
             'text' => 'Blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        // [
+        //     'text'        => 'Pages',
+        //     'url'         => 'admin/pages',
+        //     'icon'        => 'file',
+        //     'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
         [
-            'text'        => 'Pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Administration',
+            'icon' => 'key',
+            'submenu' => [
+                [
+                    'text' => 'Users',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Logs',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+            ],
+            // 'can' => 'sysadmin',
+        ],
+        [
+            'text' => 'Setup',
+            'icon' => 'gear',
+            'submenu' => [
+                [
+                    'text' => 'Department',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Site',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Asset Type',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Property Type',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Asset Status',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Assets',
+            'icon' => 'barcode',
+            'submenu' => [
+                [
+                    'text' => 'Enrollment',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Master List',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Transfer',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Retirement',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Reports',
+            'icon' => 'line-chart',
+            'submenu' => [
+                [
+                    'text' => 'Active Assets',
+                    'icon' => 'null',
+                    'url' => '#',
+                ],
+            ],
         ],
         'ACCOUNT SETTINGS',
         [
@@ -132,57 +217,57 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'lock',
         ],
-        [
-            'text'    => 'Multilevel',
-            'icon'    => 'share',
-            'submenu' => [
-                [
-                    'text' => 'Level One',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'Level One',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Level Two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'Level Two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'Level One',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        'LABELS',
-        [
-            'text'       => 'Important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Information',
-            'icon_color' => 'aqua',
-        ],
+        // [
+        //     'text'    => 'Multilevel',
+        //     'icon'    => 'share',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Level One',
+        //             'url'  => '#',
+        //         ],
+        //         [
+        //             'text'    => 'Level One',
+        //             'url'     => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'Level Two',
+        //                     'url'  => '#',
+        //                 ],
+        //                 [
+        //                     'text'    => 'Level Two',
+        //                     'url'     => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'Level Three',
+        //                             'url'  => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'Level Three',
+        //                             'url'  => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'Level One',
+        //             'url'  => '#',
+        //         ],
+        //     ],
+        // ],
+        // 'LABELS',
+        // [
+        //     'text'       => 'Important',
+        //     'icon_color' => 'red',
+        // ],
+        // [
+        //     'text'       => 'Warning',
+        //     'icon_color' => 'yellow',
+        // ],
+        // [
+        //     'text'       => 'Information',
+        //     'icon_color' => 'aqua',
+        // ],
     ],
 
     /*
