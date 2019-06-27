@@ -128,7 +128,7 @@ return [
                 [
                     'text' => 'Users',
                     'icon' => 'null',
-                    'url' => '#',
+                    'url' => '/admin/users',
                 ],
                 [
                     'text' => 'Logs',
