@@ -19,6 +19,10 @@ Route::group(['middleware'=>['web','auth','revalidate']], function() {
     Route::get('/admin/users',function() {
         return view('admin.users.index');
     });
+
+    Route::get('/setup/departments',function() {
+        return view('setup.dept.index');
+    });
 });
 
 Auth::routes();

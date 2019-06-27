@@ -18,3 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('admin/users','UsersController');
+
+// Department API Routes
+Route::get('setup/departments', 'DepartmentsController@index');             // List Departments
+Route::post('setup/departments', 'DepartmentsController@store');            // Add Departments
+Route::put('setup/departments', 'DepartmentsController@store');             // Update Departments
+Route::delete('setup/departments/{id}', 'DepartmentsController@destroy');   // Delete Departments

@@ -145,7 +145,7 @@ return [
                 [
                     'text' => 'Department',
                     'icon' => 'null',
-                    'url' => '#',
+                    'url' => '/setup/departments',
                 ],
                 [
                     'text' => 'Site',
