@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-xs-5">
+            <div class="col-xs-4">
                 <div class="box box-info">
                     <form @submit.prevent="addRecord()">
 
@@ -12,12 +12,12 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group has-feedback">
-                                <input type="description" name="description" class="form-control" v-model="dept.description" placeholder="Department">
+                                <input type="text" name="description" class="form-control" v-model="dept.description" placeholder="Department" autofocus autocomplete="off">
                                 <span class="help-block"><strong class="text-danger">{{ errors.description == undefined ? '' : errors.description[0] }}</strong></span>
                             </div>
 
                             <div class="form-group has-feedback">
-                                <input type="abbrev" name="abbrev" class="form-control" v-model="dept.abbrev" placeholder="Abbreviation (Ex: Information Technnology: IT)">
+                                <input type="text" name="abbrev" class="form-control" v-model="dept.abbrev" placeholder="Abbreviation (Ex: Information Technnology: IT)" autocomplete="off">
                                 <span class="help-block"><strong class="text-danger">{{ errors.abbrev == undefined ? '' : errors.abbrev[0] }}</strong>
                                 </span>
                             </div>
@@ -32,15 +32,18 @@
                 </div>
             </div>
 
-            <div class="col-xs-7">
+            <div class="col-xs-8">
                 <div class="box box-warning">
-                    <div class="box-body">
-                        <div class="row" style="padding-bottom: 10px;">
+                    <div class="box-body" style="margin-bottom: 0px;">
+                        <div class="row">
                             <div class="col-xs-6">
                                 <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">{{ pagination.message }}</div>
                             </div>
                             <div class="col-xs-6">
-                                <!-- <button class="btn btn-md btn-info pull-right" data-toggle="modal" data-target="#input-form"><i class="fa fa-plus"></i> Add New User</button> -->
+                                <div class="form-group has-feedback">
+                                    <input type="text" name="search" id="search" class="form-control form-control-sm" placeholder="Search Departments" v-model="keyword" v-on:keyup.13="getInfo()">
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -122,7 +125,8 @@ import { constants } from 'crypto';
                 edit: false,
                 dept_id: '',
                 pagination: {},
-                errors: {}
+                errors: {},
+                keyword: ''
             }
         },
         created() {
@@ -130,7 +134,7 @@ import { constants } from 'crypto';
         },
         methods: {
             getInfo(page_url) {
-                page_url = page_url || '/api/setup/departments'
+                page_url = page_url || '/api/setup/departments/' + this.keyword
                 
                 fetch(page_url)
                     .then(res => res.json())
@@ -179,7 +183,7 @@ import { constants } from 'crypto';
                         if (data.Results != undefined) {
                             this.clearForm();
                             this.getInfo();
-                             $('input[name="description"]').focus();
+                            $('input[name="description"]').focus();
                         }
                     })
                     .catch(err => console.log(err));
@@ -190,6 +194,7 @@ import { constants } from 'crypto';
                 this.dept_id = dept.id;
                 this.dept.description = dept.description;
                 this.dept.abbrev = dept.abbrev;
+                $('input[name="description"]').focus();
             },
             deleteRecord(id) {
                 if (confirm('Are You Sure?')) {
@@ -210,7 +215,7 @@ import { constants } from 'crypto';
                 this.dept_id = null;
                 this.dept.description = '';
                 this.dept.abbrev = '';
-                console.log(this.errors);
+                $('input[name="description"]').focus();
             }
         }
     }

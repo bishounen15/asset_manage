@@ -20,10 +20,14 @@ class DepartmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($keyword = null)
     {
         //
-        $depts = Department::select('id', 'description','abbrev')->paginate(10);
+        $depts = Department::select('id', 'description','abbrev')
+                        ->where("description","LIKE",'%'.$keyword.'%')
+                        ->orderBy('description','asc')
+                        ->paginate(10);
+
         return Response::json($depts);
     }
 

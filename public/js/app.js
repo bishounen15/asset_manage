@@ -3665,6 +3665,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
@@ -3679,7 +3682,8 @@ __webpack_require__.r(__webpack_exports__);
       edit: false,
       dept_id: '',
       pagination: {},
-      errors: {}
+      errors: {},
+      keyword: ''
     };
   },
   created: function created() {
@@ -3689,7 +3693,7 @@ __webpack_require__.r(__webpack_exports__);
     getInfo: function getInfo(page_url) {
       var _this = this;
 
-      page_url = page_url || '/api/setup/departments';
+      page_url = page_url || '/api/setup/departments/' + this.keyword;
       fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -3753,6 +3757,7 @@ __webpack_require__.r(__webpack_exports__);
       this.dept_id = dept.id;
       this.dept.description = dept.description;
       this.dept.abbrev = dept.abbrev;
+      $('input[name="description"]').focus();
     },
     deleteRecord: function deleteRecord(id) {
       var _this3 = this;
@@ -3776,7 +3781,7 @@ __webpack_require__.r(__webpack_exports__);
       this.dept_id = null;
       this.dept.description = '';
       this.dept.abbrev = '';
-      console.log(this.errors);
+      $('input[name="description"]').focus();
     }
   }
 });
@@ -60307,7 +60312,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-xs-5" }, [
+      _c("div", { staticClass: "col-xs-4" }, [
         _c("div", { staticClass: "box box-info" }, [
           _c(
             "form",
@@ -60335,9 +60340,11 @@ var render = function() {
                     ],
                     staticClass: "form-control",
                     attrs: {
-                      type: "description",
+                      type: "text",
                       name: "description",
-                      placeholder: "Department"
+                      placeholder: "Department",
+                      autofocus: "",
+                      autocomplete: "off"
                     },
                     domProps: { value: _vm.dept.description },
                     on: {
@@ -60375,10 +60382,11 @@ var render = function() {
                     ],
                     staticClass: "form-control",
                     attrs: {
-                      type: "abbrev",
+                      type: "text",
                       name: "abbrev",
                       placeholder:
-                        "Abbreviation (Ex: Information Technnology: IT)"
+                        "Abbreviation (Ex: Information Technnology: IT)",
+                      autocomplete: "off"
                     },
                     domProps: { value: _vm.dept.abbrev },
                     on: {
@@ -60441,13 +60449,16 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-xs-7" }, [
+      _c("div", { staticClass: "col-xs-8" }, [
         _c("div", { staticClass: "box box-warning" }, [
-          _c("div", { staticClass: "box-body" }, [
-            _c(
-              "div",
-              { staticClass: "row", staticStyle: { "padding-bottom": "10px" } },
-              [
+          _c(
+            "div",
+            {
+              staticClass: "box-body",
+              staticStyle: { "margin-bottom": "0px" }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-xs-6" }, [
                   _c(
                     "div",
@@ -60463,152 +60474,195 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-xs-6" })
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "table",
-              { staticClass: "table table-bordered table-condensed" },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.depts, function(dept, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", [
-                        _vm._v(_vm._s(_vm.pagination.first_rec + index))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(dept.description))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(dept.abbrev))]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-xs btn-success",
-                            on: {
-                              click: function($event) {
-                                return _vm.editRecord(dept)
+                _c("div", { staticClass: "col-xs-6" }, [
+                  _c("div", { staticClass: "form-group has-feedback" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.keyword,
+                          expression: "keyword"
+                        }
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      attrs: {
+                        type: "text",
+                        name: "search",
+                        id: "search",
+                        placeholder: "Search Departments"
+                      },
+                      domProps: { value: _vm.keyword },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            $event.keyCode !== 13
+                          ) {
+                            return null
+                          }
+                          return _vm.getInfo()
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.keyword = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass:
+                        "glyphicon glyphicon-search form-control-feedback"
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table table-bordered table-condensed" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.depts, function(dept, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.pagination.first_rec + index))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(dept.description))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(dept.abbrev))]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-xs btn-success",
+                              on: {
+                                click: function($event) {
+                                  return _vm.editRecord(dept)
+                                }
                               }
-                            }
+                            },
+                            [_c("i", { staticClass: "fa fa-edit" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-xs btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteRecord(dept.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-remove" })]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-xs-12" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "dataTables_paginate paging_simple_numbers pull-right"
+                    },
+                    [
+                      _c("ul", { staticClass: "pagination" }, [
+                        _c(
+                          "li",
+                          {
+                            staticClass: "paginate_button previous",
+                            class: [{ disabled: !_vm.pagination.prev_page }]
                           },
-                          [_c("i", { staticClass: "fa fa-edit" })]
+                          [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    !!_vm.pagination.prev_page &&
+                                      _vm.getInfo(_vm.pagination.prev_page)
+                                  }
+                                }
+                              },
+                              [_vm._v("Previous")]
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c(
-                          "button",
+                          "li",
                           {
-                            staticClass: "btn btn-xs btn-danger",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteRecord(dept.id)
-                              }
-                            }
+                            staticClass: "paginate_button disabled",
+                            attrs: { id: "example2_next" }
                           },
-                          [_c("i", { staticClass: "fa fa-remove" })]
+                          [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "#",
+                                  "aria-controls": "example2",
+                                  "data-dt-idx": "7",
+                                  tabindex: "0"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "Page " +
+                                    _vm._s(_vm.pagination.curr_page) +
+                                    " of " +
+                                    _vm._s(_vm.pagination.last_page)
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          {
+                            staticClass: "paginate_button next",
+                            class: [{ disabled: !_vm.pagination.next_page }]
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    !!_vm.pagination.next_page &&
+                                      _vm.getInfo(_vm.pagination.next_page)
+                                  }
+                                }
+                              },
+                              [_vm._v("Next")]
+                            )
+                          ]
                         )
                       ])
-                    ])
-                  }),
-                  0
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-xs-12" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "dataTables_paginate paging_simple_numbers pull-right"
-                  },
-                  [
-                    _c("ul", { staticClass: "pagination" }, [
-                      _c(
-                        "li",
-                        {
-                          staticClass: "paginate_button previous",
-                          class: [{ disabled: !_vm.pagination.prev_page }]
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  !!_vm.pagination.prev_page &&
-                                    _vm.getInfo(_vm.pagination.prev_page)
-                                }
-                              }
-                            },
-                            [_vm._v("Previous")]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        {
-                          staticClass: "paginate_button disabled",
-                          attrs: { id: "example2_next" }
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: "#",
-                                "aria-controls": "example2",
-                                "data-dt-idx": "7",
-                                tabindex: "0"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "Page " +
-                                  _vm._s(_vm.pagination.curr_page) +
-                                  " of " +
-                                  _vm._s(_vm.pagination.last_page)
-                              )
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        {
-                          staticClass: "paginate_button next",
-                          class: [{ disabled: !_vm.pagination.next_page }]
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  !!_vm.pagination.next_page &&
-                                    _vm.getInfo(_vm.pagination.next_page)
-                                }
-                              }
-                            },
-                            [_vm._v("Next")]
-                          )
-                        ]
-                      )
-                    ])
-                  ]
-                )
+                    ]
+                  )
+                ])
               ])
-            ])
-          ])
+            ]
+          )
         ])
       ])
     ]),
