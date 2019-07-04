@@ -20,9 +20,11 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('user-dataset', require('./components/UserDataset.vue').default);
-Vue.component('dept-dataset', require('./components/DeptDataset.vue').default);
-Vue.component('site-dataset', require('./components/SiteDataset.vue').default);
+Vue.component('user-dataset', require('./components/admin/UserDataset.vue').default);
+
+Vue.component('dept-dataset', require('./components/setup/DeptDataset.vue').default);
+Vue.component('site-dataset', require('./components/setup/SiteDataset.vue').default);
+Vue.component('assettype-dataset', require('./components/setup/AssetTypeDataset.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

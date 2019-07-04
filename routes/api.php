@@ -31,3 +31,9 @@ Route::post('setup/sites', 'SitesController@store');            // Add Sites
 Route::put('setup/sites', 'SitesController@store');             // Update Sites
 Route::delete('setup/sites/{id}', 'SitesController@destroy');   // Delete Sites
 Route::get('list/sites/parent', 'SitesController@parentSites');   // List Parent Sites
+
+// Asset Types API Routes
+Route::get('setup/assettypes/{keyword?}', 'AssetTypesController@index');  // List Asset Types
+Route::post('setup/assettypes', 'AssetTypesController@store');            // Add Asset Types
+Route::put('setup/assettypes', 'AssetTypesController@store');             // Update Asset Types
+Route::delete('setup/assettypes/{id}', 'AssetTypesController@destroy');   // Delete Asset Types

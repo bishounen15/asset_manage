@@ -155,7 +155,7 @@ return [
                 [
                     'text' => 'Asset Type',
                     'icon' => 'null',
-                    'url' => '#',
+                    'url' => '/setup/assettypes',
                 ],
                 [
                     'text' => 'Property Type',
