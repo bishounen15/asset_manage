@@ -23,6 +23,10 @@ Route::group(['middleware'=>['web','auth','revalidate']], function() {
     Route::get('/setup/departments',function() {
         return view('setup.dept.index');
     });
+
+    Route::get('/setup/sites',function() {
+        return view('setup.site.index');
+    });
 });
 
 Auth::routes();

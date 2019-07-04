@@ -24,3 +24,10 @@ Route::get('setup/departments/{keyword?}', 'DepartmentsController@index');  // L
 Route::post('setup/departments', 'DepartmentsController@store');            // Add Departments
 Route::put('setup/departments', 'DepartmentsController@store');             // Update Departments
 Route::delete('setup/departments/{id}', 'DepartmentsController@destroy');   // Delete Departments
+
+// Site API Routes
+Route::get('setup/sites/{keyword?}', 'SitesController@index');  // List Sites
+Route::post('setup/sites', 'SitesController@store');            // Add Sites
+Route::put('setup/sites', 'SitesController@store');             // Update Sites
+Route::delete('setup/sites/{id}', 'SitesController@destroy');   // Delete Sites
+Route::get('list/sites/parent', 'SitesController@parentSites');   // List Parent Sites

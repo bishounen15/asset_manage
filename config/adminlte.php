@@ -150,7 +150,7 @@ return [
                 [
                     'text' => 'Site',
                     'icon' => 'null',
-                    'url' => '#',
+                    'url' => '/setup/sites',
                 ],
                 [
                     'text' => 'Asset Type',

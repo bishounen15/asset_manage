@@ -22,6 +22,7 @@ window.Vue = require('vue');
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('user-dataset', require('./components/UserDataset.vue').default);
 Vue.component('dept-dataset', require('./components/DeptDataset.vue').default);
+Vue.component('site-dataset', require('./components/SiteDataset.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
