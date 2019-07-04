@@ -25,6 +25,7 @@ Vue.component('user-dataset', require('./components/admin/UserDataset.vue').defa
 Vue.component('dept-dataset', require('./components/setup/DeptDataset.vue').default);
 Vue.component('site-dataset', require('./components/setup/SiteDataset.vue').default);
 Vue.component('assettype-dataset', require('./components/setup/AssetTypeDataset.vue').default);
+Vue.component('proptype-dataset', require('./components/setup/PropertyTypeDataset.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

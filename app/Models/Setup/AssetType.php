@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Setup;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Site extends Model
+class AssetType extends Model
 {
     //
 }

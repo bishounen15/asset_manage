@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Setup;
 
-use App\Department;
+use App\Models\Setup\Department;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use Response;
 use Validator;

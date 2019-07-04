@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group has-feedback">
-                                    <input type="text" name="search" id="search" class="form-control form-control-sm" v-bind:placeholder="'Search ' + general.title_plural" v-model="keyword" v-on:keyup.13="getInfo()">
+                                    <input type="text" name="search" id="search" class="form-control form-control-sm" v-bind:placeholder="'Search ' + general.title_plural" v-model="keyword" v-on:keyup="getInfo()">
                                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
                                 </div>
                             </div>

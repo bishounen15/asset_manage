@@ -12,14 +12,8 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group has-feedback">
-                                <input type="text" name="description" class="form-control" v-model="asset_type.description" v-bind:placeholder="general.title" autofocus autocomplete="off">
+                                <input type="text" name="description" class="form-control" v-model="prop_type.description" v-bind:placeholder="general.title" autofocus autocomplete="off">
                                 <span class="help-block"><strong class="text-danger">{{ errors.description == undefined ? '' : errors.description[0] }}</strong></span>
-                            </div>
-
-                            <div class="form-group has-feedback">
-                                <input type="text" name="abbrev" class="form-control" v-model="asset_type.abbrev" placeholder="Abbreviation (Ex: Laptop: LTP)" autocomplete="off">
-                                <span class="help-block"><strong class="text-danger">{{ errors.abbrev == undefined ? '' : errors.abbrev[0] }}</strong>
-                                </span>
                             </div>
                         </div>
 
@@ -51,19 +45,17 @@
                             <thead class="thead-dark">
                                 <tr role="row">
                                     <th width="10%">#</th>
-                                    <th width="55%">{{ general.title }}</th>
-                                    <th width="20%">Abbreviation</th>
+                                    <th width="75%">{{ general.title }}</th>
                                     <th width="15%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(asset_type,index) in asset_types" v-bind:key="index">
+                                <tr v-for="(prop_type,index) in prop_types" v-bind:key="index">
                                     <td>{{ pagination.first_rec + index }}</td>
-                                    <td>{{ asset_type.description }}</td>
-                                    <td>{{ asset_type.abbrev }}</td>
+                                    <td>{{ prop_type.description }}</td>
                                     <td class="text-center">
-                                        <button @click="editRecord(asset_type)" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
-                                        <button @click="deleteRecord(asset_type.id)" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>
+                                        <button @click="editRecord(prop_type)" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
+                                        <button @click="deleteRecord(prop_type.id)" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -96,17 +88,16 @@ import { constants } from 'crypto';
         data() {
             return {
                 general: {
-                    title: 'Asset Type',
-                    title_plural: 'Asset Types'
+                    title: 'Property Type',
+                    title_plural: 'Property Types'
                 },
-                asset_types: [],
-                asset_type: {
+                prop_types: [],
+                prop_type: {
                     id: '',
                     description: '',
-                    abbrev: '',
                 },
                 edit: false,
-                asset_type_id: '',
+                prop_type_id: '',
                 pagination: {},
                 errors: {},
                 keyword: ''
@@ -117,13 +108,13 @@ import { constants } from 'crypto';
         },
         methods: {
             getInfo(page_url) {
-                page_url = page_url || '/api/setup/assettypes/' + this.keyword
+                page_url = page_url || '/api/setup/proptypes/' + this.keyword
                 
                 fetch(page_url)
                     .then(res => res.json())
                     .then(res => {
                         let vm = this;
-                        this.asset_types = res.data;
+                        this.prop_types = res.data;
                         vm.makePagination(res.next_page_url, res.prev_page_url, res.current_page, res.last_page, res.from, res.to, res.total);
                     });
             },
@@ -153,9 +144,9 @@ import { constants } from 'crypto';
                     mtd = 'put';
                 }
 
-                fetch('/api/setup/assettypes', {
+                fetch('/api/setup/proptypes', {
                     method: mtd,
-                    body: JSON.stringify(this.asset_type),
+                    body: JSON.stringify(this.prop_type),
                     headers: {
                         'content-type': 'application/json'
                     }
@@ -171,17 +162,16 @@ import { constants } from 'crypto';
                     })
                     .catch(err => console.log(err));
             },
-            editRecord(asset_type) {
+            editRecord(prop_type) {
                 this.edit = true;
-                this.asset_type.id = asset_type.id;
-                this.asset_type_id = asset_type.id;
-                this.asset_type.description = asset_type.description;
-                this.asset_type.abbrev = asset_type.abbrev;
+                this.prop_type.id = prop_type.id;
+                this.prop_type_id = prop_type.id;
+                this.prop_type.description = prop_type.description;
                 $('input[name="description"]').focus();
             },
             deleteRecord(id) {
                 if (confirm('Are You Sure?')) {
-                    fetch(`/api/setup/assettypes/${id}`, {
+                    fetch(`/api/setup/proptypes/${id}`, {
                     method: 'delete'
                     })
                     .then(res => res.json())
@@ -194,10 +184,9 @@ import { constants } from 'crypto';
             clearForm() {
                 this.edit = false;
                 this.errors = {};
-                this.asset_type.id = null;
-                this.asset_type_id = null;
-                this.asset_type.description = '';
-                this.asset_type.abbrev = '';
+                this.prop_type.id = null;
+                this.prop_type_id = null;
+                this.prop_type.description = '';
                 $('input[name="description"]').focus();
             }
         }

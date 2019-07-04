@@ -160,7 +160,7 @@ return [
                 [
                     'text' => 'Property Type',
                     'icon' => 'null',
-                    'url' => '#',
+                    'url' => '/setup/proptypes',
                 ],
                 [
                     'text' => 'Asset Status',

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Setup;
 
-use App\Site;
+use App\Models\Setup\Site;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use DB;
 use Response;

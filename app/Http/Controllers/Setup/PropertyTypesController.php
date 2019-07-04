@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Setup;
 
-use App\AssetType;
+use App\Models\Setup\PropertyType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use Response;
 use Validator;
 
-class AssetTypesController extends Controller
+class PropertyTypesController extends Controller
 {
     //
     public function __construct()
@@ -24,12 +25,12 @@ class AssetTypesController extends Controller
     public function index($keyword = null)
     {
         //
-        $asset_types = AssetType::select('id', 'description','abbrev')
+        $prop_types = PropertyType::select('id', 'description')
                         ->where("description","LIKE",'%'.$keyword.'%')
                         ->orderBy('description','asc')
                         ->paginate(10);
 
-        return Response::json($asset_types);
+        return Response::json($prop_types);
     }
 
     /**
@@ -54,21 +55,19 @@ class AssetTypesController extends Controller
         $validator = null;
 
         $validator = Validator::make($request->all(), [
-            'description' => 'required|unique:asset_types,description,'.$request->input('id'),
-            'abbrev' => 'required|unique:asset_types,abbrev,'.$request->input('id'),
+            'description' => 'required|unique:property_types,description,'.$request->input('id'),
         ]);
         
         if ($validator->fails()) {
             return Response::json(['Errors' => $validator->errors()]);
         } else {
-            $asset_type = $request->isMethod('put') ? AssetType::findOrFail($request->id) : new AssetType;
+            $prop_type = $request->isMethod('put') ? PropertyType::findOrFail($request->id) : new PropertyType;
             
-            $asset_type->id = $request->input('id');
-            $asset_type->description = $request->input('description');
-            $asset_type->abbrev = $request->input('abbrev');
-
-            if($asset_type->save()) {
-                return Response::json(['Results' => $asset_type, 'Errors' => $validator]);
+            $prop_type->id = $request->input('id');
+            $prop_type->description = $request->input('description');
+            
+            if($prop_type->save()) {
+                return Response::json(['Results' => $prop_type, 'Errors' => $validator]);
             }
         }
     }
@@ -82,10 +81,10 @@ class AssetTypesController extends Controller
     public function destroy($id)
     {
         //
-        $asset_type = AssetType::findOrFail($id);
+        $prop_type = PropertyType::findOrFail($id);
 
-        if($asset_type->delete()) {
-            return Response::json($asset_type);
+        if($prop_type->delete()) {
+            return Response::json($prop_type);
         }    
     }
 }
