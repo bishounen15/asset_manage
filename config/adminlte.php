@@ -165,7 +165,7 @@ return [
                 [
                     'text' => 'Asset Status',
                     'icon' => 'null',
-                    'url' => '#',
+                    'url' => '/setup/assetstatus',
                 ],
             ],
         ],

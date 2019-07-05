@@ -43,3 +43,9 @@ Route::get('setup/proptypes/{keyword?}', 'Setup\PropertyTypesController@index');
 Route::post('setup/proptypes', 'Setup\PropertyTypesController@store');            // Add Property Types
 Route::put('setup/proptypes', 'Setup\PropertyTypesController@store');             // Update Property Types
 Route::delete('setup/proptypes/{id}', 'Setup\PropertyTypesController@destroy');   // Delete Property Types
+
+// Asset Status API Routes
+Route::get('setup/assetstatus/{keyword?}', 'Setup\AssetStatusesController@index');  // List Asset Status
+Route::post('setup/assetstatus', 'Setup\AssetStatusesController@store');            // Add Asset Status
+Route::put('setup/assetstatus', 'Setup\AssetStatusesController@store');             // Update Asset Status
+Route::delete('setup/assetstatus/{id}', 'Setup\AssetStatusesController@destroy');   // Delete Asset Status

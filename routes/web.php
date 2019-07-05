@@ -35,6 +35,10 @@ Route::group(['middleware'=>['web','auth','revalidate']], function() {
     Route::get('/setup/proptypes',function() {
         return view('setup.proptype.index');
     });
+
+    Route::get('/setup/assetstatus',function() {
+        return view('setup.assetstatus.index');
+    });
 });
 
 Auth::routes();
