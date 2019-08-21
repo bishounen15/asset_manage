@@ -28,6 +28,9 @@ Vue.component('assettype-dataset', require('./components/setup/AssetTypeDataset.
 Vue.component('proptype-dataset', require('./components/setup/PropertyTypeDataset.vue').default);
 Vue.component('assetstatus-dataset', require('./components/setup/AssetStatusDataset.vue').default);
 
+Vue.component('asset-list', require('./components/assets/List.vue').default);
+Vue.component('asset-profile', require('./components/assets/Profile.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

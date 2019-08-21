@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 2',
+    'title' => 'Asset Management System',
 
     'title_prefix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'skin' => 'yellow',
+    'skin' => 'blue',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,24 +174,14 @@ return [
             'icon' => 'barcode',
             'submenu' => [
                 [
-                    'text' => 'Enrollment',
+                    'text' => 'Dashboard',
                     'icon' => 'null',
                     'url' => '#',
                 ],
                 [
                     'text' => 'Master List',
                     'icon' => 'null',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'Transfer',
-                    'icon' => 'null',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'Retirement',
-                    'icon' => 'null',
-                    'url' => '#',
+                    'url' => '/assets',
                 ],
             ],
         ],

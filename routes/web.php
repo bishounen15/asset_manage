@@ -39,6 +39,16 @@ Route::group(['middleware'=>['web','auth','revalidate']], function() {
     Route::get('/setup/assetstatus',function() {
         return view('setup.assetstatus.index');
     });
+
+    Route::get('/assets',function() {
+        return view('assets.index');
+    });
+
+    Route::get('/assets/profile/{id?}',function($id = null) {
+        $data = [];
+        $data['id'] = $id;
+        return view('assets.profile',$data);
+    });
 });
 
 Auth::routes();

@@ -49,3 +49,6 @@ Route::get('setup/assetstatus/{keyword?}', 'Setup\AssetStatusesController@index'
 Route::post('setup/assetstatus', 'Setup\AssetStatusesController@store');            // Add Asset Status
 Route::put('setup/assetstatus', 'Setup\AssetStatusesController@store');             // Update Asset Status
 Route::delete('setup/assetstatus/{id}', 'Setup\AssetStatusesController@destroy');   // Delete Asset Status
+
+// Assets
+Route::get('assets/{keyword?}', 'Asset\RecordsController@index');  // List Asset Status
