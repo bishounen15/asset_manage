@@ -88,4 +88,9 @@ class DepartmentsController extends Controller
             return Response::json($dept);
         }    
     }
+
+    public function list() {
+        $dept = Department::select("description")->orderBy("description","asc")->get();
+        return $dept;
+    }
 }

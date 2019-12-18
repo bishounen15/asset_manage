@@ -109,4 +109,26 @@ class SitesController extends Controller
             return Response::json($site);
         }    
     }
+
+    public function list() {
+        //"CONCAT(IFNULL(parent_sites.description,''),CASE WHEN parent_sites.id IS NULL THEN '' ELSE ' : ' END,sites.description) AS description"
+        $sites = Site::leftjoin("sites as parent_sites","sites.parent_id","parent_sites.id")
+                        ->selectRaw("sites.description")
+                        ->orderByRaw("IFNULL(parent_sites.description,sites.description) ASC, CASE WHEN parent_sites.description IS NULL THEN '' ELSE sites.description END ASC")
+                        ->get();
+
+        return $sites;
+    }
+
+    public function getSubsites($site) {
+        $subsites = Site::join("sites as parent_sites", "sites.parent_id", "parent_sites.id")
+                            ->selectRaw("sites.description")
+                            ->where([
+                                ["parent_sites.parent_id",0],
+                                ["parent_sites.description",$site],
+                            ])->orderBy("sites.description","ASC")
+                            ->get();
+
+        return $subsites;
+    }
 }
