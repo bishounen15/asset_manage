@@ -32,6 +32,33 @@ class RecordsController extends Controller
         return Response::json($records);
     }
 
+    public function profile($id) {
+        $data = [];
+        $data['id'] = $id;
+
+        return view('assets.profile',$data);
+    }
+
+    public function getProfile($id) {
+        $data = [];
+
+        $record = Record::find($id);
+        
+        $data['record'] = $record;
+        
+        return Response::json($data);
+    }
+
+    function getNetwork($id) {
+        $network = Network::where("asset_id",$id)->paginate(10);
+        return Response::json($network);
+    }
+
+    function getApps($id) {
+        $apps = Applications::where("asset_id",$id)->orderBy("app_name","ASC")->paginate(10);
+        return Response::json($apps);
+    }
+
     public function saveAsset(Request $request) {
         // dd($request);
         $asset_item = Record::updateOrCreate(

@@ -3979,23 +3979,136 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.getInfo();
+  },
   data: function data() {
     return {
-      asset_info: {},
+      asset_info: {
+        record: {},
+        network: {},
+        disk: {},
+        application: {}
+      },
       pagination: {}
     };
   },
-  created: function created() {
-    this.getInfo();
-  },
+  created: function created() {},
   props: {
     asset_id: Number
   },
   methods: {
     getInfo: function getInfo() {
-      this.asset_info.serial = 'TEST';
+      var _this = this;
+
+      var page_url = '/api/asset/profile/' + this.asset_id;
+      fetch(page_url, {
+        method: 'post'
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        var vm = _this;
+        vm.asset_info.record = res.record;
+        vm.getNetwork();
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    getNetwork: function getNetwork(page_url) {
+      var _this2 = this;
+
+      page_url = page_url || '/api/asset/network/' + this.asset_id;
+      fetch(page_url, {
+        method: 'post'
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        var vm = _this2;
+        vm.asset_info.network = res;
+        vm.getApps();
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    getApps: function getApps(page_url) {
+      var _this3 = this;
+
+      page_url = page_url || '/api/asset/apps/' + this.asset_id;
+      fetch(page_url, {
+        method: 'post'
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        var vm = _this3;
+        _this3.asset_info.application = res;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   }
 });
@@ -62080,33 +62193,211 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("h3", { staticClass: "profile-username text-center" }, [
-                _vm._v(_vm._s(_vm.asset_info.serial))
+                _vm._v(_vm._s(_vm.asset_info.record.serial))
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "text-muted text-center" }, [
-                _vm._v(_vm._s(_vm.asset_info.type))
+                _vm._v(_vm._s(_vm.asset_info.record.type))
               ]),
               _vm._v(" "),
-              _vm._m(0),
-              _vm._v(" "),
-              _vm._m(1)
+              _c("ul", { staticClass: "list-group list-group-unbordered" }, [
+                _c("li", { staticClass: "list-group-item" }, [
+                  _c("b", [_vm._v("Brand")]),
+                  _vm._v(" "),
+                  _c("a", { staticClass: "pull-right" }, [
+                    _vm._v(_vm._s(_vm.asset_info.record.brand))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "list-group-item" }, [
+                  _c("b", [_vm._v("Model")]),
+                  _vm._v(" "),
+                  _c("a", { staticClass: "pull-right" }, [
+                    _vm._v(_vm._s(_vm.asset_info.record.model))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "list-group-item" }, [
+                  _c("b", [_vm._v("Status")]),
+                  _vm._v(" "),
+                  _c("a", { staticClass: "pull-right" }, [
+                    _vm._v(_vm._s(_vm.asset_info.record.status))
+                  ])
+                ])
+              ])
             ])
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-9" }, [
           _c("div", { staticClass: "nav-tabs-custom" }, [
-            _vm._m(2),
+            _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "tab-content" }, [
               _c(
                 "div",
                 { staticClass: "tab-pane active", attrs: { id: "info" } },
-                [_vm._v("\n                        info\n                    ")]
+                [
+                  _c("form", { staticClass: "form-horizontal" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "inputName" }
+                        },
+                        [_vm._v("Host Name")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.asset_info.record.host_name }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "inputName" }
+                        },
+                        [_vm._v("Site")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.asset_info.record.site }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "inputName" }
+                        },
+                        [_vm._v("Device Status")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "text", readonly: "" },
+                          domProps: {
+                            value: _vm.asset_info.record.device_status
+                          }
+                        })
+                      ])
+                    ])
+                  ])
+                ]
               ),
               _vm._v(" "),
               _c("div", { staticClass: "tab-pane", attrs: { id: "specs" } }, [
-                _vm._v("\n                        specs\n                    ")
+                _c("form", { staticClass: "form-horizontal" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 control-label",
+                        attrs: { for: "inputName" }
+                      },
+                      [_vm._v("OS")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.asset_info.record.os }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 control-label",
+                        attrs: { for: "inputName" }
+                      },
+                      [_vm._v("Processor")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.asset_info.record.proc }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 control-label",
+                        attrs: { for: "inputName" }
+                      },
+                      [_vm._v("RAM")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.asset_info.record.ram }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 control-label",
+                        attrs: { for: "inputName" }
+                      },
+                      [_vm._v("HDD")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.asset_info.record.hdd }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 control-label",
+                        attrs: { for: "inputName" }
+                      },
+                      [_vm._v("Graphics Card")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text", readonly: "" },
+                        domProps: { value: _vm.asset_info.record.gfx_card }
+                      })
+                    ])
+                  ])
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "tab-pane", attrs: { id: "network" } }, [
@@ -62131,11 +62422,11 @@ var render = function() {
                         [
                           _vm._v(
                             "Showing " +
-                              _vm._s(_vm.pagination.first_rec) +
+                              _vm._s(_vm.asset_info.network.from) +
                               " to " +
-                              _vm._s(_vm.pagination.last_rec) +
+                              _vm._s(_vm.asset_info.network.to) +
                               " of " +
-                              _vm._s(_vm.pagination.total_rec) +
+                              _vm._s(_vm.asset_info.network.total) +
                               " entries"
                           )
                         ]
@@ -62150,14 +62441,17 @@ var render = function() {
                   "table",
                   { staticClass: "table table-bordered table-condensed" },
                   [
-                    _vm._m(3),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.asset_info.networks, function(network, index) {
+                      _vm._l(_vm.asset_info.network.data, function(
+                        network,
+                        index
+                      ) {
                         return _c("tr", { key: index }, [
                           _c("td", [
-                            _vm._v(_vm._s(_vm.pagination.first_rec + index))
+                            _vm._v(_vm._s(_vm.asset_info.network.from + index))
                           ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(network.ip))]),
@@ -62168,9 +62462,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(network.descr))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(network.interface))]),
-                          _vm._v(" "),
-                          _vm._m(4, true)
+                          _c("td", [_vm._v(_vm._s(network.interface))])
                         ])
                       }),
                       0
@@ -62231,9 +62523,11 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "Page " +
-                                      _vm._s(_vm.pagination.curr_page) +
+                                      _vm._s(
+                                        _vm.asset_info.network.current_page
+                                      ) +
                                       " of " +
-                                      _vm._s(_vm.pagination.last_page)
+                                      _vm._s(_vm.asset_info.network.last_page)
                                   )
                                 ]
                               )
@@ -62269,6 +62563,10 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
+              _c("div", { staticClass: "tab-pane", attrs: { id: "disks" } }, [
+                _vm._v("\n                        disks\n                    ")
+              ]),
+              _vm._v(" "),
               _c("div", { staticClass: "tab-pane", attrs: { id: "apps" } }, [
                 _c(
                   "div",
@@ -62291,11 +62589,11 @@ var render = function() {
                         [
                           _vm._v(
                             "Showing " +
-                              _vm._s(_vm.pagination.first_rec) +
+                              _vm._s(_vm.asset_info.application.from) +
                               " to " +
-                              _vm._s(_vm.pagination.last_rec) +
+                              _vm._s(_vm.asset_info.application.to) +
                               " of " +
-                              _vm._s(_vm.pagination.total_rec) +
+                              _vm._s(_vm.asset_info.application.total) +
                               " entries"
                           )
                         ]
@@ -62310,14 +62608,19 @@ var render = function() {
                   "table",
                   { staticClass: "table table-bordered table-condensed" },
                   [
-                    _vm._m(5),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.asset_info.apps, function(app, index) {
+                      _vm._l(_vm.asset_info.application.data, function(
+                        app,
+                        index
+                      ) {
                         return _c("tr", { key: index }, [
                           _c("td", [
-                            _vm._v(_vm._s(_vm.pagination.first_rec + index))
+                            _vm._v(
+                              _vm._s(_vm.asset_info.application.from + index)
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(app.install_date))]),
@@ -62326,9 +62629,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(app.version))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(app.install_type))]),
-                          _vm._v(" "),
-                          _vm._m(6, true)
+                          _c("td", [_vm._v(_vm._s(app.install_type))])
                         ])
                       }),
                       0
@@ -62350,7 +62651,12 @@ var render = function() {
                             "li",
                             {
                               staticClass: "paginate_button previous",
-                              class: [{ disabled: !_vm.pagination.prev_page }]
+                              class: [
+                                {
+                                  disabled: !_vm.asset_info.application
+                                    .prev_page_url
+                                }
+                              ]
                             },
                             [
                               _c(
@@ -62359,8 +62665,12 @@ var render = function() {
                                   attrs: { href: "#" },
                                   on: {
                                     click: function($event) {
-                                      !!_vm.pagination.prev_page &&
-                                        _vm.getInfo(_vm.pagination.prev_page)
+                                      !!_vm.asset_info.application
+                                        .prev_page_url &&
+                                        _vm.getApps(
+                                          _vm.asset_info.application
+                                            .prev_page_url
+                                        )
                                     }
                                   }
                                 },
@@ -62389,9 +62699,13 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "Page " +
-                                      _vm._s(_vm.pagination.curr_page) +
+                                      _vm._s(
+                                        _vm.asset_info.application.current_page
+                                      ) +
                                       " of " +
-                                      _vm._s(_vm.pagination.last_page)
+                                      _vm._s(
+                                        _vm.asset_info.application.last_page
+                                      )
                                   )
                                 ]
                               )
@@ -62402,7 +62716,12 @@ var render = function() {
                             "li",
                             {
                               staticClass: "paginate_button next",
-                              class: [{ disabled: !_vm.pagination.next_page }]
+                              class: [
+                                {
+                                  disabled: !_vm.asset_info.application
+                                    .next_page_url
+                                }
+                              ]
                             },
                             [
                               _c(
@@ -62411,8 +62730,12 @@ var render = function() {
                                   attrs: { href: "#" },
                                   on: {
                                     click: function($event) {
-                                      !!_vm.pagination.next_page &&
-                                        _vm.getInfo(_vm.pagination.next_page)
+                                      !!_vm.asset_info.application
+                                        .next_page_url &&
+                                        _vm.getApps(
+                                          _vm.asset_info.application
+                                            .next_page_url
+                                        )
                                     }
                                   }
                                 },
@@ -62434,40 +62757,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "list-group list-group-unbordered" }, [
-      _c("li", { staticClass: "list-group-item" }, [
-        _c("b", [_vm._v("Followers")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "pull-right" }, [_vm._v("1,322")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [
-        _c("b", [_vm._v("Following")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "pull-right" }, [_vm._v("543")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [
-        _c("b", [_vm._v("Friends")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "pull-right" }, [_vm._v("13,287")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "btn btn-primary btn-block", attrs: { href: "#" } },
-      [_c("b", [_vm._v("Follow")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -62520,6 +62809,20 @@ var staticRenderFns = [
           "a",
           {
             attrs: {
+              href: "#disks",
+              "data-toggle": "tab",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("Disks")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", {}, [
+        _c(
+          "a",
+          {
+            attrs: {
               href: "#apps",
               "data-toggle": "tab",
               "aria-expanded": "false"
@@ -62546,23 +62849,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Interface")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Actions")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-xs btn-success" }, [
-        _c("i", { staticClass: "fa fa-edit" })
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-xs btn-danger" }, [
-        _c("i", { staticClass: "fa fa-remove" })
+        _c("th", [_vm._v("Interface")])
       ])
     ])
   },
@@ -62580,23 +62867,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Version")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Install Type")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Actions")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-xs btn-success" }, [
-        _c("i", { staticClass: "fa fa-edit" })
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-xs btn-danger" }, [
-        _c("i", { staticClass: "fa fa-remove" })
+        _c("th", [_vm._v("Install Type")])
       ])
     ])
   }

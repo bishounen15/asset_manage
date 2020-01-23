@@ -44,11 +44,7 @@ Route::group(['middleware'=>['web','auth','revalidate']], function() {
         return view('assets.index');
     });
 
-    Route::get('/assets/profile/{id?}',function($id = null) {
-        $data = [];
-        $data['id'] = $id;
-        return view('assets.profile',$data);
-    });
+    Route::get('/assets/profile/{id?}','Asset\RecordsController@profile');
 });
 
 Auth::routes();

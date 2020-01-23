@@ -11,7 +11,7 @@
 @section('content')
     <div id="app">
         <asset-profile
-         v-bind:asset_id=1
+         v-bind:asset_id={{$id}}
         ></asset-profile>
     </div>
 @stop

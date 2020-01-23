@@ -7,23 +7,23 @@
                         <div class="box-body box-profile">
                         <img class="profile-user-img img-responsive img-circle" src="/storage/default.png" alt="User profile picture">
 
-                        <h3 class="profile-username text-center">{{asset_info.serial}}</h3>
+                        <h3 class="profile-username text-center">{{asset_info.record.serial}}</h3>
 
-                        <p class="text-muted text-center">{{asset_info.type}}</p>
+                        <p class="text-muted text-center">{{asset_info.record.type}}</p>
 
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                            <b>Followers</b> <a class="pull-right">1,322</a>
+                            <b>Brand</b> <a class="pull-right">{{asset_info.record.brand}}</a>
                             </li>
                             <li class="list-group-item">
-                            <b>Following</b> <a class="pull-right">543</a>
+                            <b>Model</b> <a class="pull-right">{{asset_info.record.model}}</a>
                             </li>
                             <li class="list-group-item">
-                            <b>Friends</b> <a class="pull-right">13,287</a>
+                            <b>Status</b> <a class="pull-right">{{asset_info.record.status}}</a>
                             </li>
                         </ul>
 
-                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -35,22 +35,91 @@
                         <li class="active"><a href="#info" data-toggle="tab" aria-expanded="true">General Information</a></li>
                         <li class=""><a href="#specs" data-toggle="tab" aria-expanded="false">Specifications</a></li>
                         <li class=""><a href="#network" data-toggle="tab" aria-expanded="false">Network Details</a></li>
+                        <li class=""><a href="#disks" data-toggle="tab" aria-expanded="false">Disks</a></li>
                         <li class=""><a href="#apps" data-toggle="tab" aria-expanded="false">Applications</a></li>
                         </ul>
                         <div class="tab-content">
                         <div class="tab-pane active" id="info">
-                            info
+                            
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Host Name</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.host_name" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Site</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.site" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Device Status</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.device_status" readonly>
+                                    </div>
+                                </div>                                
+                            </form>
+
                         </div>
                         <!-- /.tab-pane -->
                         <div class="tab-pane" id="specs">
-                            specs
+                            
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">OS</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.os" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Processor</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.proc" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">RAM</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.ram" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">HDD</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.hdd" readonly>
+                                    </div>
+                                </div>                                
+
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Graphics Card</label>
+
+                                    <div class="col-sm-10">
+                                    <input type="text" class="form-control" v-bind:value="asset_info.record.gfx_card" readonly>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                         <!-- /.tab-pane -->
 
                         <div class="tab-pane" id="network">
                             <div class="row" style="padding-bottom: 10px;">
                                 <div class="col-xs-6">
-                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing {{ pagination.first_rec }} to {{ pagination.last_rec }} of {{ pagination.total_rec }} entries</div>
+                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing {{ asset_info.network.from }} to {{ asset_info.network.to }} of {{ asset_info.network.total }} entries</div>
                                 </div>
                                 <div class="col-xs-6">
                                     <!-- <button class="btn btn-md btn-info pull-right" data-toggle="modal" data-target="#input-form"><i class="fa fa-plus"></i> Add Asset</button> -->
@@ -66,21 +135,16 @@
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Interface</th>
-                                        <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(network,index) in asset_info.networks" v-bind:key="index">
-                                        <td>{{ pagination.first_rec + index }}</td>
+                                    <tr v-for="(network,index) in asset_info.network.data" v-bind:key="index">
+                                        <td>{{ asset_info.network.from + index }}</td>
                                         <td>{{ network.ip }}</td>
                                         <td>{{ network.mac }}</td>
                                         <td>{{ network.name }}</td>
                                         <td>{{ network.descr }}</td>
                                         <td>{{ network.interface }}</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -90,7 +154,7 @@
                                     <div class="dataTables_paginate paging_simple_numbers pull-right">
                                         <ul class="pagination">
                                             <li v-bind:class="[{ disabled: !pagination.prev_page }]" class="paginate_button previous"><a href="#" @click="!!pagination.prev_page && getInfo(pagination.prev_page)">Previous</a></li>
-                                            <li class="paginate_button disabled" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Page {{ pagination.curr_page }} of {{ pagination.last_page }}</a></li>
+                                            <li class="paginate_button disabled" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Page {{ asset_info.network.current_page }} of {{ asset_info.network.last_page }}</a></li>
                                             <li v-bind:class="[{ disabled: !pagination.next_page }]" class="paginate_button next"><a href="#" @click="!!pagination.next_page && getInfo(pagination.next_page)">Next</a></li>
                                         </ul>
                                     </div>
@@ -99,10 +163,15 @@
                         </div>
                         <!-- /.tab-pane -->
 
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="disks">
+                            disks
+                        </div>
+
                         <div class="tab-pane" id="apps">
                             <div class="row" style="padding-bottom: 10px;">
                                 <div class="col-xs-6">
-                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing {{ pagination.first_rec }} to {{ pagination.last_rec }} of {{ pagination.total_rec }} entries</div>
+                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing {{ asset_info.application.from }} to {{ asset_info.application.to }} of {{ asset_info.application.total }} entries</div>
                                 </div>
                                 <div class="col-xs-6">
                                     <!-- <button class="btn btn-md btn-info pull-right" data-toggle="modal" data-target="#input-form"><i class="fa fa-plus"></i> Add Asset</button> -->
@@ -117,20 +186,15 @@
                                         <th>Application Name</th>
                                         <th>Version</th>
                                         <th>Install Type</th>
-                                        <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(app,index) in asset_info.apps" v-bind:key="index">
-                                        <td>{{ pagination.first_rec + index }}</td>
+                                    <tr v-for="(app,index) in asset_info.application.data" v-bind:key="index">
+                                        <td>{{ asset_info.application.from + index }}</td>
                                         <td>{{ app.install_date }}</td>
                                         <td>{{ app.app_name }}</td>
                                         <td>{{ app.version }}</td>
                                         <td>{{ app.install_type }}</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-xs btn-success"><i class="fa fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -139,9 +203,9 @@
                                 <div class="col-xs-12">
                                     <div class="dataTables_paginate paging_simple_numbers pull-right">
                                         <ul class="pagination">
-                                            <li v-bind:class="[{ disabled: !pagination.prev_page }]" class="paginate_button previous"><a href="#" @click="!!pagination.prev_page && getInfo(pagination.prev_page)">Previous</a></li>
-                                            <li class="paginate_button disabled" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Page {{ pagination.curr_page }} of {{ pagination.last_page }}</a></li>
-                                            <li v-bind:class="[{ disabled: !pagination.next_page }]" class="paginate_button next"><a href="#" @click="!!pagination.next_page && getInfo(pagination.next_page)">Next</a></li>
+                                            <li v-bind:class="[{ disabled: !asset_info.application.prev_page_url }]" class="paginate_button previous"><a href="#" @click="!!asset_info.application.prev_page_url && getApps(asset_info.application.prev_page_url)">Previous</a></li>
+                                            <li class="paginate_button disabled" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Page {{ asset_info.application.current_page }} of {{ asset_info.application.last_page }}</a></li>
+                                            <li v-bind:class="[{ disabled: !asset_info.application.next_page_url }]" class="paginate_button next"><a href="#" @click="!!asset_info.application.next_page_url && getApps(asset_info.application.next_page_url)">Next</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -160,23 +224,66 @@
 <script>
 export default {
     mounted() {
-
+        this.getInfo();
     },
     data() {
         return {
-            asset_info: {},
+            asset_info: {
+                record: {},
+                network: {},
+                disk: {},
+                application: {},
+            },
             pagination: {}
         }
     },
     created() {
-        this.getInfo();
+        
     },
     props: {
         asset_id: Number
     },
     methods: {
         getInfo() {
-            this.asset_info.serial = 'TEST';
+            let page_url = '/api/asset/profile/' + this.asset_id;
+                
+            fetch(page_url, {
+                method: 'post',
+                })
+                .then(res => res.json())
+                .then(res => {
+                    let vm = this;
+                    vm.asset_info.record = res.record;
+                    vm.getNetwork();
+                })
+                .catch(err => console.log(err));
+        },
+        getNetwork(page_url) {
+            page_url = page_url || '/api/asset/network/' + this.asset_id;
+                
+            fetch(page_url, {
+                method: 'post',
+                })
+                .then(res => res.json())
+                .then(res => {
+                    let vm = this;
+                    vm.asset_info.network = res;
+                    vm.getApps();
+                })
+                .catch(err => console.log(err));
+        },
+        getApps(page_url) {
+            page_url = page_url || '/api/asset/apps/' + this.asset_id;
+                
+            fetch(page_url, {
+                method: 'post',
+                })
+                .then(res => res.json())
+                .then(res => {
+                    let vm = this;
+                    this.asset_info.application = res;
+                })
+                .catch(err => console.log(err));
         }
     }
 }

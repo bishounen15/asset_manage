@@ -53,6 +53,10 @@ Route::delete('setup/assetstatus/{id}', 'Setup\AssetStatusesController@destroy')
 // Assets
 Route::get('assets/{keyword?}', 'Asset\RecordsController@index');  // List Asset Status
 
+Route::post('asset/profile/{id}', 'Asset\RecordsController@getProfile');
+Route::post('asset/network/{id}', 'Asset\RecordsController@getNetwork');
+Route::post('asset/apps/{id}', 'Asset\RecordsController@getApps');
+
 Route::post('asset/update', 'Asset\RecordsController@saveAsset');
 Route::post('asset/network', 'Asset\RecordsController@saveNetwork');
 Route::post('asset/disks', 'Asset\RecordsController@saveDisks');
