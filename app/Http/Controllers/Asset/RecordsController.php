@@ -10,6 +10,8 @@ use App\Models\Asset\Network;
 use App\Models\Asset\Disk;
 use App\Models\Asset\Applications;
 
+use App\FAMS\Assets;
+
 use DB;
 use Response;
 use Validator;
@@ -60,7 +62,22 @@ class RecordsController extends Controller
     }
 
     public function saveAsset(Request $request) {
-        // dd($request);
+        $asset = Assets::where("serial_no",$request->serial)->first();
+
+        if (!$asset) {
+            $id_number = $request->id_number;
+            $name = $request->name;
+            $site = $request->site;
+            $dept = $request->dept;
+            $status = $request->status;
+        } else {
+            $id_number = !$asset->employee() ? "" : $asset->employee()->employee_no;
+            $name = !$asset->employee() ? "" : $asset->employee()->full_name;
+            $site = $asset->site();
+            $dept = !$asset->employee() ? "" : $asset->employee()->department();
+            $status = $asset->status();
+        }
+
         $asset_item = Record::updateOrCreate(
                             [
                                 'serial' => $request->serial
@@ -71,13 +88,13 @@ class RecordsController extends Controller
                                 'model' => $request->model,
                                 'os' => $request->os,
                                 'host_name' => $request->host_name,
-                                'id_number' => $request->id_number,
-                                'name' => $request->name,
-                                'dept' => $request->dept,
-                                'site' => $request->site,
+                                'id_number' => $id_number,
+                                'name' => $name,
+                                'dept' => $dept,
+                                'site' => $site,
                                 'sub_site' => $request->sub_site,
                                 'status' => $request->status,
-                                'device_status' => $request->device_status,
+                                'device_status' => $status,
                                 'proc' => $request->proc,
                                 'ram' => $request->ram,
                                 'hdd' => $request->hdd,

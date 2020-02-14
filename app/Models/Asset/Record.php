@@ -27,4 +27,8 @@ class Record extends Model
         'gfx_card',
         'remarks',
     ];
+
+    public function famsData() {
+        return $this->hasOne('App\FAMS\Assets', 'serial_no', 'serial')->first();
+    }
 }

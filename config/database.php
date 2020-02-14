@@ -91,6 +91,19 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'fams' => [
+            'driver' => 'sqlsrv',
+            // 'url' => env('DATABASE_URL'),
+            'host' => '192.168.128.22\MESSQLDB2017',
+            'port' => '1433',
+            'database' => 'HGS_',
+            'username' => 'sa',
+            'password' => 'Mesdbs3rv3r*',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*
